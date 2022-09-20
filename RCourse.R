@@ -68,3 +68,36 @@ library(gganimate)
 #Add this at the end of a plot to make colours colourblind friendly:
 scale_colour_viridis_c() #"c" is for continuous
 
+
+
+######  filter() Exercise: #####################################################
+Arrival_delay <- filter(flights, arr_delay >= 120)
+Houston <- filter(flights, dest %in% c("IAH", "HOU"))
+Airline <- filter(flights, carrier %in% c("UA", "AA", "DL"))
+Summer <- filter(flights, month %in% c(7:9))
+Arrival_delay_2 <- filter(flights, arr_delay >= 120 & dep_delay <= 0)
+Arrival_delay_3 <- filter(flights, dep_delay >= 60 & arr_delay <= 30)
+DepartTime <- filter(flights, dep_time = )
+
+######  arrange() Exercise: ####################################################
+print(arrange(flights, desc(distance/air_time)), width = Inf)
+
+######  select() Exercise: #####################################################
+select(flights, starts_with("dep"), starts_with("arr"))
+select(flights, dep_time, dep_delay, arr_time, arr_delay)
+
+
+vars <- c("year", "month", "day", "dep_delay", "arr_delay")
+select(flights, any_of(vars))
+
+select(flights, contains("TIME"))
+
+######  mutate() Exercise: #####################################################
+mutate(flights,
+       hour = dep_time %/% 100, 
+       minute = dep_time %% 100,
+       dep_time = hour * 60 + minute)
+
+select(mutate(flights,
+             arrdep = arr_time - dep_time), arr_time, dep_time, arrdep)
+      
