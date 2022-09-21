@@ -69,6 +69,9 @@ library(gganimate)
 scale_colour_viridis_c() #"c" is for continuous
 
 
+## flights dataset
+library(nycflights13)
+library(tidyverse)
 
 ######  filter() Exercise: #####################################################
 Arrival_delay <- filter(flights, arr_delay >= 120)
@@ -100,4 +103,27 @@ mutate(flights,
 
 select(mutate(flights,
              arrdep = arr_time - dep_time), arr_time, dep_time, arrdep)
-      
+
+
+######  group_by() Exercise: ###################################################
+
+not_cancelled %>% count(dest)
+n_distinct(x)
+
+flights %>% 
+  group_by(year, month, day) %>% 
+  summarise(cancelled = sum(is.na(dep_delay)), 
+            n = n()) %>% 
+  arrange(desc(cancelled))  
+
+
+
+
+flights %>%
+  group_by(year, month, day) %>%
+  summarize(prop_canceled = mean(is.na(dep_delay)),
+            avg_delay = mean(dep_delay, na.rm = TRUE)) %>%
+  ggplot(aes(prop_canceled, avg_delay)) +
+  geom_point() +
+  theme_bw(13) +
+  geom_smooth()      
