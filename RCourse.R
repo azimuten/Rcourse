@@ -116,8 +116,6 @@ flights %>%
             n = n()) %>% 
   arrange(desc(cancelled))  
 
-#git test3
-
 flights %>%
   group_by(year, month, day) %>%
   summarize(prop_canceled = mean(is.na(dep_delay)),
