@@ -142,3 +142,22 @@ flights %>%
 
 
 
+
+M <- 50
+step1 <- runif(M)
+A <- rnorm(M)
+N <- 1e4
+
+tau <- matrix(0, N + 1, M)
+tau[1, ] <- A
+for (j in 1:M) {
+  for (i in 2:nrow(tau)) {
+    tau[i, j] <- tau[i - 1, j] + step1[j] * 1.0025^(i - 2)
+  }
+} 
+
+
+
+
+
+
