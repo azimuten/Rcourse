@@ -66,7 +66,8 @@ install.packages("gganimate")
 library(gganimate)
 
 #Add this at the end of a plot to make colours colourblind friendly:
-scale_colour_viridis_c() #"c" is for continuous
+scale_colour_viridis_c() #"c" is for continuous alwasy use direction = -1 to havre the largest value the darkest colour.
+
 
 
 ## flights dataset
@@ -123,4 +124,21 @@ flights %>%
   ggplot(aes(prop_canceled, avg_delay)) +
   geom_point() +
   theme_bw(13) +
-  geom_smooth()      
+  geom_smooth()
+
+
+
+airports %>%
+  semi_join(flights, c("faa" = "dest")) %>%
+  ggplot(aes(lon, lat)) +
+  borders("state") +
+  geom_point() +
+  coord_quickmap()
+
+## when using left_join(), you can use suffix() to change the end of the name of the variables added to the df.
+flights %>% 
+  left_join(airports, c("origin" = "faa"))
+
+
+
+
